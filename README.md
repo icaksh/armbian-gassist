@@ -24,6 +24,19 @@ PM2 monitoring (Start -> Mic -> Detector -> Google Home Assist -> Audio -> Termi
 I don't know the efficient way to run this app.
 
 # How to Install
+## Understanding the Documentation
+This documentation is based on FreeBSD documentation (only documentation, not the apps). Shell user-prompt use `$` in codeblock and root-prompt use `#` in codeblock avoiding user confusion who directly use root account, using sudo instead of doas or vice versa.
+
+Example
+
+```console
+# nano
+```
+ is equivalent with
+
+```console
+$ sudo nano or doas nano
+```
 
 ## Configuration
 Add all of your configuration on .env file
