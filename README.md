@@ -25,35 +25,56 @@ I don't know the efficient way to run this app.
 
 # How to Install
 
+## Configuration
+Add all of your configuration on .env file
+
+```console
+DEVICE_ID=YOUR_DEVICE_ID // Obtained from GCP
+DEVICE_MODEL_ID=YOUR_DEVICE_MODEL_ID // Obtained from GCP
+LATITUDE=YOUR_LATITUDE //
+LONGITUDE=YOUR_LONGITUDE // 
+MIC_HW='plughw:1,0'
+```
+
+For MIC_HW, you can get from `arecord` command
+```console
+$ arecord -l
+card 1: Device [USB PnP Sound Device], device 0: USB Audio [USB Audio]
+  Subdevices: 0/1
+  Subdevice # 350: subdevice #350
+```
+
+You can see is the card number is 1 and device is 0 so your plughw is `plughw:1,0`
+
 ## Installation
 
 ### Audio backend
 
 Install audio dependencies
-```sh
+```console
 sudo apt install libmagic-dev libatlas-base-dev sox libsox-fmt-all build-essential
 ```
 
 Install `alsalib` or `pulseaudio lib` for compiling backend
-```sh
+```console
 sudo apt install libasound2/pulseaudio-libs-devel
 ```
 
 Install `speaker-arm64` with your audio backend (example pulseaudio)
-```sh
+```console
 npm install speaker-arm64 --mpg123-backend=pulse/alsa
 ```
 
 ### Gassist Armbian
 Install all dependencies
 
-```sh
+```console
 npm install
 ```
 
 Install `pm2`
 
-```sh
+```console
 sudo npm install -g pm2
 ```
 
