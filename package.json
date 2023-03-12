@@ -1,0 +1,21 @@
+{
+  "name": "gassist-armbian",
+  "version": "1.0.0",
+  "description": "Google Home Assistant for Armbian",
+  "main": "index.js",
+  "dependencies": {
+    "@bugsounet/snowboy": "^2.2.5",
+    "google-assistant": "^0.7.0",
+    "google-auth-library": "^8.7.0",
+    "speaker-arm64": "^0.5.2",
+    "wav": "^1.0.2"
+  },
+  "devDependencies": {
+    "node-record-lpcm16": "git+https://github.com/endoplasmic/node-record-lpcm16.git"
+  },
+  "scripts": {
+    "run": "pm2 index.js"
+  },
+  "author": "icaksh",
+  "license": "MIT"
+}
