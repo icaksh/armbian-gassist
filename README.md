@@ -52,36 +52,36 @@ You can see is the card number is 1 and device is 0 so your plughw is `plughw:1,
 
 Install audio dependencies
 ```console
-sudo apt install libmagic-dev libatlas-base-dev sox libsox-fmt-all build-essential
+# apt install libmagic-dev libatlas-base-dev sox libsox-fmt-all build-essential
 ```
 
 Install `alsalib` or `pulseaudio lib` for compiling backend
 ```console
-sudo apt install libasound2/pulseaudio-libs-devel
+# apt install libasound2/pulseaudio-libs-devel
 ```
 
 Install `speaker-arm64` with your audio backend (example pulseaudio)
 ```console
-npm install speaker-arm64 --mpg123-backend=pulse/alsa
+$ npm install speaker-arm64 --mpg123-backend=pulse/alsa
 ```
 
 ### Gassist Armbian
 Install all dependencies
 
 ```console
-npm install
+$ npm install
 ```
 
 Install `pm2`
 
 ```console
-sudo npm install -g pm2
+# npm install -g pm2
 ```
 
 ## Run
 Run with `pm2`
 ```js 
-pm2 start index.js
+$ pm2 start index.js
 ```
 
 # Additional Information
