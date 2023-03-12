@@ -1,8 +1,7 @@
 # Google Home Assistant for Armbian
 
 I build Google Home Assistant for Armbian (S905x) based on NodeJS (because Python eating more resources)
-
-
+![Screenshot_20230312_034939](https://user-images.githubusercontent.com/19889081/224534942-db2ca585-6c72-4b9b-a0bf-758e10d5451e.png)
 # Getting Started
 
 ## Requirement 
