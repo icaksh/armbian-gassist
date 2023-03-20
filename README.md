@@ -13,6 +13,7 @@ For installation you need:
 
 # How it Works
 
+## PM2
 PM2 monitoring (Start -> Mic -> Detector -> Google Home Assist -> Audio -> Terminate)
 
 1. PM2 started the app
@@ -22,6 +23,17 @@ PM2 monitoring (Start -> Mic -> Detector -> Google Home Assist -> Audio -> Termi
 5. App terminated and PM2 will restart this app
 
 I don't know the efficient way to run this app.
+
+## systemd
+The logic with systemd is same as `pm2`. You can see on `gassist.service` file
+
+```ini
+StartLimitIntervalSec=1m
+StartLimitBurst=100
+Restart=always
+RestartSec=1
+```
+I use `gassist.service` run on user instance because of when the armbian rebooted, `pm2` run before `pulseaudio` run, so it will got error `Connection refused`
 
 # How to Install
 ## Understanding the Documentation
@@ -41,7 +53,7 @@ $ sudo nano or doas nano
 ## Configuration
 Add all of your configuration on .env file
 
-```console
+```ini
 DEVICE_ID=YOUR_DEVICE_ID // Obtained from GCP
 DEVICE_MODEL_ID=YOUR_DEVICE_MODEL_ID // Obtained from GCP
 LATITUDE=YOUR_LATITUDE //
@@ -61,7 +73,15 @@ You can see is the card number is 1 and device is 0 so your plughw is `plughw:1,
 
 ## Installation
 
-### Audio backend
+Clone this repo
+```console
+$ git clone https://github.com/icaksh/armbian-gassist $HOME/.config/gassist
+```
+
+Chdir to repo dir
+```console
+$ cd $HOME/.config/gassist
+```
 
 Install audio dependencies
 ```console
@@ -78,12 +98,39 @@ Install `speaker-arm64` with your audio backend (example pulseaudio)
 $ npm install speaker-arm64 --mpg123-backend=pulse/alsa
 ```
 
-### Gassist Armbian
 Install all dependencies
 
 ```console
 $ npm install
 ```
+## Running Gassist
+### systemd
+
+Move the `gassist.service` file
+```console
+$ mv gassist.service $HOME/.config/systemd/user/gassist.service
+```
+
+Enable the `gassist.service`
+```console
+$ systemctl --user daemon-reload
+$ systemctl --user enable gassist.service
+$ systemctl --user start gassist.service
+```
+
+Check if `gassist.service` is running
+```console
+$ systemctl --user status gassist.service
+● gassist.service - Google Home Assistant
+     Loaded: loaded (/home/icaksh/.config/systemd/user/gassist.service; enabled; vendor preset: enabled)
+     Active: active (running) since Mon 2023-03-20 03:01:11 UTC; 16min ago
+   Main PID: 10637 (node)
+     CGroup: /user.slice/user-1000.slice/user@1000.service/gassist.service
+             ├─10637 /usr/bin/node /home/icaksh/.config/gassist/index.js
+             └─10645 arecord -q -r 16000 -c 1 -t wav -f S16_LE -
+```
+### PM2
+
 
 Install `pm2`
 
@@ -91,7 +138,6 @@ Install `pm2`
 # npm install -g pm2
 ```
 
-## Run
 Run with `pm2`
 ```js 
 $ pm2 start index.js
